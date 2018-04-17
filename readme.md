@@ -34,3 +34,7 @@ logger.debug("I'm a test log", {"test": "log"}, 200);
 - Debug (Blue color. Example: logger.debug(logs)).
 - Error (Red color. Example: logger.error(logs)).
 - Info (Green color. Example: logger.info(logs)).
+
+#### Screen
+
+![screen](https://github.com/Shiroys/images/blob/master/screen01.png)
