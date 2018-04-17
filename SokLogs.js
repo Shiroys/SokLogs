@@ -9,6 +9,7 @@
 /*------------------------------------------------------------------------------------*/
 
 const fs = require('fs');
+const zlib = require('zlib');
 
 class SokLogs {
     constructor(config) {
@@ -30,31 +31,44 @@ class SokLogs {
         (config.service) ? this.service = config.service : this.service = null;
     }
 
-    saveLogs(output) {
+    compressFile(copyFile, newFile) {
         try {
-            fs.stat(this.path + this.filename, (err, stats) => {
-                if (err == null) {
-                    console.log("SIZE: ", this.date);
-                    let fileSize = stats.size / 1000000.0;
-                    if (fileSize > this.size) {
-                        let count = 0;
-                        fs.readdirSync(this.path).map((element) => {
-                            let eleSplit = element.split('.');
-                            return ((eleSplit.length === 3 && eleSplit[0] === this.filename.split('.')[0]) ? parseInt(eleSplit[1]) : 0);
-                        }).forEach((element) => {
-                            if (element > count) {
-                                count = element;
-                            }
-                        });
-                        fs.renameSync(this.path + this.filename, this.path + this.filename.split('.')[0] + "." + (count + 1).toString() + ".logs");
-                    }
-                    fs.appendFileSync(this.path + this.filename, output);
-                } else {
-                    fs.appendFileSync(this.path + this.filename, output);
-                }
-            })
+            let readStream = fs.createReadStream(copyFile);
+            let writeStream = fs.createWriteStream(newFile);
+            readStream.pipe(zlib.createGzip()).pipe(writeStream);
         } catch (err) {
             throw new TypeError(err);
+        }
+    }
+
+    saveLogs(output) {
+        try {
+            let fileSize = fs.statSync(this.path + this.filename).size / 1000000.0;
+            if (fileSize >= this.size) {
+                let count = 0;
+                fs.copyFileSync(this.path + this.filename, this.path + 'tmpLogs.logs');
+                fs.readdirSync(this.path).map((element) => {
+                    let eleSplit = element.split('.');
+                    return ((eleSplit.length === 4 && eleSplit[0] === this.filename.split('.')[0]) ? parseInt(eleSplit[1]) : 0);
+                }).forEach((element) => {
+                    if (element > count) {
+                        count = element;
+                    }
+                });
+                let newFile = this.path + this.filename.split('.')[0] + "." + (count + 1).toString() + "." + this.filename.split('.')[1] + ".gz";
+                this.compressFile(this.path + "tmpLogs.logs", newFile, output);
+                fs.writeFileSync(this.path + this.filename, '');
+                fs.appendFileSync(this.path + this.filename, output);
+                fs.unlinkSync(this.path + 'tmpLogs.logs');
+            } else {
+                fs.appendFileSync(this.path + this.filename, output);
+            }
+        } catch (err) {
+            if (err.code === "ENOENT") {
+                fs.appendFileSync(this.path + this.filename, output);
+            } else {
+                throw new TypeError(err);
+            }
         }
     }
 

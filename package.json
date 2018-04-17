@@ -1,14 +1,14 @@
 {
   "name": "soklogs",
   "description": "A logger who create, write and manage logs files.",
-  "author": "Sokkar",
+  "author": "Sokkar <sokkar.pro@gmail.com>",
   "main": "SokLogs.js",
   "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Shiroys/SokLogs.git"
   },
-  "keywords": [],
+  "keywords": ["logger", "sokkar", "logs", "sok", "soklogs", "SokLogs"],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Shiroys/SokLogs/issues"
