@@ -1,0 +1,6 @@
+{
+  "name": "soklogs",
+  "description": "A logger who create, write and manage logs files.",
+  "author": "Sokkar",
+  "version": "1.0.0"
+}
