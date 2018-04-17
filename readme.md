@@ -23,10 +23,10 @@ logger.debug("I'm a test log", {"test": "log"}, 200);
 
 #### Config documentation
 
-- Filename: String(Required) (Name of the file where you want your logs saved).
-- Path: String(Required) (Path of the file where you want your logs saved).
-- Date: Boolean(Optional) (Enable or disable date display before message).
-- Service: String(Optional) (A string who name your service. Appear between date and message).
+- Filename: String(Required) (Name of the file).
+- Path: String(Required) (Path of the file).
+- Date: Boolean(Optional) (Enable or disable date display).
+- Service: String(Optional) (A string who name your service.).
 - Size: Int(Optional) (Specify max size of logs files in MO).
 
 #### Severity
