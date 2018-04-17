@@ -3,29 +3,34 @@
 #### Using npm
 
 > $ npm i -g npm <br/>
-$ npm i --save sokLog
+$ npm i --save soklogs
 
 #### In node js
 
 > // Load the logger class <br/>
-var SokLogs = require('sokLog'); <br/>
+var SokLogs = require('soklogs'); <br/><br/>
 // Init logger <br/>
 var config = {
+    "filename": "logs.logs",
+    "path": "/Users/Test/Desktop",
     "date": true,
-    "service": "Test"
+    "service": "Test",
+    "size": 500
 } <br/>
-var logger = new SokLogs(config);
+var logger = new SokLogs(config); <br/><br/>
+// Use logger <br/>
+logger.debug("I'm a test log", {"test": "log"}, 200);
 
 #### Config documentation
 
 - Filename: String(Required) (Name of the file where you want your logs saved).
 - Path: String(Required) (Path of the file where you want your logs saved).
-- Date: Boolean(Optionnal) (Enable or disable date display before message).
-- Service: String(Optionnal) (A string who name your service. Appear between date and message).
-- Size: Int(Optionnal) (Specify max size of logs files in MO).
+- Date: Boolean(Optional) (Enable or disable date display before message).
+- Service: String(Optional) (A string who name your service. Appear between date and message).
+- Size: Int(Optional) (Specify max size of logs files in MO).
 
 #### Severity
 
-- Debug (Appear with a blue color. Example: logger.debug(message)).
-- Error (Appear with a red color. Example: logger.error(message)).
-- Info (Appear with a green color. Example: logger.info(message)).
+- Debug (Blue color. Example: logger.debug(logs)).
+- Error (Red color. Example: logger.error(logs)).
+- Info (Green color. Example: logger.info(logs)).
