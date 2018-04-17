@@ -11,7 +11,7 @@ $ npm i --save soklogs
 var SokLogs = require('soklogs'); <br/><br/>
 // Init logger <br/>
 var config = {
-    "filename": "logs.logs",
+    "filename": "logs.log",
     "path": "/Users/Test/Desktop",
     "date": true,
     "service": "Test",
