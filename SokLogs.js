@@ -16,6 +16,7 @@ class SokLogs {
         this.blue = "\x1b[34m";
         this.green = "\x1b[32m";
         this.red = "\x1b[31m";
+        this.magenta = "\x1b[35m";
         this.reset = "\x1b[0m";
         if (!config.filename)
             throw new TypeError("No filename provided in configuration");
@@ -122,6 +123,17 @@ class SokLogs {
         }
         if (this.service) {
             output += ((this.date) ? " - " : "") + this.green + "[-> " + this.service + " <-]" + this.reset + " -";
+        }
+        this.saveLogs(output + this.retMessage(arguments) + "\n");
+    }
+
+    warn() {
+        let output = "";
+        if (this.date === true) {
+            output += this.magenta + "[ " + new Date().toISOString().split('T')[0] + " ]" + this.reset;
+        }
+        if (this.service) {
+            output += ((this.date) ? " - " : "") + this.magenta + "[-> " + this.service + " <-]" + this.reset + " -";
         }
         this.saveLogs(output + this.retMessage(arguments) + "\n");
     }

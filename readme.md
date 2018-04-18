@@ -34,6 +34,7 @@ logger.debug("I'm a test log", {"test": "log"}, 200);
 - Debug (Blue color. Example: logger.debug(logs)).
 - Error (Red color. Example: logger.error(logs)).
 - Info (Green color. Example: logger.info(logs)).
+- Warn (Magenta color. Example: logger.warn(logs)).
 
 #### Screen
 
